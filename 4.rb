@@ -37,7 +37,6 @@ span = 0
         span += 1
     end
     adjust_terms
-
 end 
 
 # Determine the largest product, and the terms used
