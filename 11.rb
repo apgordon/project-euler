@@ -27,9 +27,10 @@ The product of these numbers is 26 × 63 × 78 × 14 = 1788696.
 What is the greatest product of four adjacent numbers in the same direction (up, down, left, right, or diagonally) in the 20×20 grid
 =end 
 
-# Create array
+# Create container array
 @arr = [] 
 
+# Method for formating the string of numbers to integers and adding as new row array
 def add_row(numbers)
     row = []
     row.push(numbers.split(" ").map!{|j| j.to_i})
@@ -58,22 +59,24 @@ add_row("20 69 36 41 72 30 23 88 34 62 99 69 82 67 59 85 74 04 36 16")
 add_row("20 73 35 29 78 31 90 01 74 31 49 71 48 86 81 16 23 57 05 54")
 add_row("01 70 54 71 83 51 54 69 16 92 33 48 61 43 52 01 89 19 67 48")
 
-@row = 12
+# row and col describe location. In this case, the "top left" of the container array
+@row = 0
 @col = 0
 @max = 0 
 
+# Check if product is greater than current max, and if so, store as the new max
 def check_new_max(product)
     if product > @max
         @max = product
-        puts "new max: #{@max} thanks to #{@row} and #{@col}"
     end 
 end
 
+# Methods for evaluating product of right, down, and each diagonal
+# The unless statements prevent execution if there won't be 4 adjacent numbers 
 def product_right
     unless @col > 16 
         product = @arr[@row][@col] * @arr[@row][@col + 1] * @arr[@row][@col + 2] * @arr[@row][@col + 3]
         check_new_max(product)
-        # puts "run product_right"
     end 
 end 
 
@@ -81,7 +84,6 @@ def product_down
     unless @row > 16
         product = @arr[@row][@col] * @arr[@row + 1 ][@col] * @arr[@row + 2][@col] * @arr[@row + 3][@col]
         check_new_max(product)
-        # puts "run product_down"
     end 
 end 
 
@@ -89,7 +91,6 @@ def product_diagonal_right
     unless @row > 16 || @col >= 17 
         product = (@arr[@row][@col]) * (@arr[@row + 1 ][@col + 1]) * (@arr[@row + 2][@col + 2]) * (@arr[@row + 3][@col + 3])
         check_new_max(product)
-        # puts "run product_diagonal_right"
     end
 end 
 
@@ -97,12 +98,13 @@ def product_diagonal_left
     unless @row > 16 || @col < 3
         product = @arr[@row][@col] * @arr[@row + 1 ][@col - 1] * @arr[@row + 2][@col - 2] * @arr[@row + 3][@col - 3]
         check_new_max(product)
-        # puts "run product_diagonal_left"
     end
 end 
 
+# A barebones loop, with each 4 adjacent multiplication method called by default
+# The logic to prevent a method from executing is in the method 
+# Loop through until row 19 and col 16, ie the last possible location to test 4 adjancent
 until @row == 19 && @col > 16 
-    # puts "row: #{@row}, col: #{@col}"
     product_right
     product_down
     product_diagonal_right
@@ -114,7 +116,7 @@ until @row == 19 && @col > 16
         @row += 1
         @col = 0
     end 
-    sleep 0
 end 
 
+# Once at row 19, col 16 
 puts @max
