@@ -41,7 +41,6 @@ def evaluate_divisors(triangle_number)
         until i > Math.sqrt(triangle_number)
             if triangle_number % i == 0 
                 divisors << i
-                # puts "#{i} added to divisors"
                 temp = triangle_number / i 
                 # Prevent dups. Example 10x10 = 100.
                 unless temp == i 
