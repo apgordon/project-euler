@@ -22,3 +22,6 @@ puts calculate_factorial(40) / (calculate_factorial(20) * calculate_factorial(40
 
 timer.stop_timer 
 timer.calculate_duration
+
+# STATS
+# Duration: 0.08 milliseconds.
