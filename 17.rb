@@ -7,12 +7,15 @@ NOTE: Do not count spaces or hyphens. For example, 342 (three hundred and forty-
 =end 
 
 require 'pry'
+require './lib/timer'
+timer = Timer.new
+timer.start_timer
 
 set = (1..1000)
 
 ones_teens = {0 => "", 1 => "one", 2 => "two", 3 => "three", 4 => "four", 5 => "five", 6 => "six", 7 => "seven", 8 => "eight", 9 => "nine", 10 => "ten", 11 => "eleven", 12 => "twelve", 13 => "thirteen", 14 => "fourteen", 15 => "fifteen", 16 => "sixteen", 17 => "seventeen", 18 => "eighteen", 19 => "nineteen"}
 
-tens = {1 => "ten", 2 => "twenty", 3 => "thirty", 4 => "fourty", 5 => "fifty", 6 => "sixty", 7 => "seventy", 8 => "eighty", 9 => "ninety"} 
+tens = {1 => "ten", 2 => "twenty", 3 => "thirty", 4 => "forty", 5 => "fifty", 6 => "sixty", 7 => "seventy", 8 => "eighty", 9 => "ninety"} 
 
 sum = 0
 set.each do |j|
@@ -21,46 +24,37 @@ set.each do |j|
         sum += "onethousand".size
         
     elsif j.between?(100,999)
-        #  puts ones_teens[j.to_s[0].to_i]
         sum += ones_teens[j.to_s[0].to_i].size
-        #  puts "hundred"
         sum += "hundred".size
         
         # not 100, 200, etc
         unless j.to_s[1] == "0" && j.to_s[2] == "0"
-            # puts "and"
             sum += "and".size
            
            # 120, 125, etc 
             if j.to_s[1].to_i >= 2 
-                # puts tens[j.to_s[1].to_i]
                 sum += tens[j.to_s[1].to_i].size
-                # puts ones_teens[j.to_s[2].to_i]
                 sum += ones_teens[j.to_s[2].to_i].size
             # 119, 109, etc
             else 
-                # puts ones_teens[j.to_s[1..2].to_i]
                 sum += ones_teens[j.to_s[1..2].to_i].size
             end
         end 
         
     elsif j.between?(20,99)
-        # puts tens[j.to_s[0].to_i]
         sum += tens[j.to_s[0].to_i].size
-        
-        unless j.to_s[1] == "0"
-            # puts ones_teens[j.to_s[1].to_i]
-            sum += ones_teens[j.to_s[1].to_i].size
-        end
+        sum += ones_teens[j.to_s[1].to_i].size
     
     elsif j.between?(1,19)
-        # puts ones_teens[j]
         sum += ones_teens[j].size
     end 
 
 end
 
-puts sum
+puts "Total sum is #{sum}."
 
-binding.pry 
-puts "the end!"
+timer.stop_timer
+timer.calculate_duration
+
+### STATS
+# Duration: 2.88 milliseconds.
