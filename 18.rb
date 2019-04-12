@@ -39,7 +39,7 @@ triangle.each_with_index do |triangle_row, triangle_index|
   if triangle_index == 0 
     # skip 
   elsif triangle_index == 1
-    # for the second to longest row, look row above in the triangle array for the largest, adjacent (diagonally) number. Then sum that and add to the row_array. 
+    # for the second to longest row, look at row above in the triangle array for the largest, adjacent (diagonally) number. Then sum that and add to the row_sums array. 
     row_sums = [] 
     triangle_row.each_with_index do |row_value, row_index| 
       unless row_value == nil 
@@ -50,10 +50,10 @@ triangle.each_with_index do |triangle_row, triangle_index|
         end
       end
     end
-    # after doing for all values in a row, add the row_sum to the sums array.
+    # after doing for all values in a row, push the row_sums to the sums array.
     sums.push(row_sums)
   else 
-    # for each row after the second, refer to the sums array to check for which diagonal number is largest. Then, again, add to the row_array and then push that to the end of the sums array. 
+    # for each row after the second, refer to the sums array to check for which diagonal number is largest. Then, again, add to the row_sums array and then push that to the end of the sums array. 
     row_sums = [] 
     triangle_row.delete(nil)
     triangle_row.each_with_index do |row_value, row_index| 
