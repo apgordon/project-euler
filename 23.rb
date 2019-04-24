@@ -29,10 +29,10 @@ until i == 28123
   i += 1
 end
 
-# for the range 1..28123, check if number can be written as sum of two abundant abundant_numbers
+# for the range 1..28123, check if number can be written as sum of two abundant numbers
 # if it can't be, store in an array called 'cannot'
-cannot = (1..11).to_a
-(12..28123).each {|n|
+cannot = (1..23).to_a
+(24..28123).each {|n|
   puts "#{(((n.to_f/28123)*100).round)}% complete" if n % 1000 == 0
   abundant_numbers.each do |abundant_number|
     difference = n - abundant_number
